@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OracleExecutor", "OracleExecutor\OracleExecutor.csproj", "{CAFFDFA7-0E40-4AEE-A5E9-88A9E25347B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataUtil", "DataUtil\DataUtil.csproj", "{0C5EB03A-B1CA-40C6-A00D-AB3176970B5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataUtilTests", "DataUtilTests\DataUtilTests.csproj", "{4FDC9478-B004-4930-8B48-380A00BE07A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{CAFFDFA7-0E40-4AEE-A5E9-88A9E25347B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAFFDFA7-0E40-4AEE-A5E9-88A9E25347B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAFFDFA7-0E40-4AEE-A5E9-88A9E25347B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C5EB03A-B1CA-40C6-A00D-AB3176970B5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C5EB03A-B1CA-40C6-A00D-AB3176970B5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C5EB03A-B1CA-40C6-A00D-AB3176970B5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C5EB03A-B1CA-40C6-A00D-AB3176970B5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FDC9478-B004-4930-8B48-380A00BE07A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FDC9478-B004-4930-8B48-380A00BE07A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FDC9478-B004-4930-8B48-380A00BE07A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FDC9478-B004-4930-8B48-380A00BE07A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

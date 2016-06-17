@@ -8,22 +8,15 @@ namespace OracleExecutor.Objects
     {
         [DataMember]
         public Guid Id { get; set; }
+        
+        [DataMember]
+        public string TNS { get; set; }
 
         [DataMember]
         public string User { get; set; }
 
         [DataMember]
-        public string Host { get; set; }
-
-        [DataMember]
-        public int Port { get; set; }
-
-        [DataMember]
         public string Password { get; set; }
-
-        [DataMember]
-        public string Database { get; set; }
-
-      
+            
     }
 }
