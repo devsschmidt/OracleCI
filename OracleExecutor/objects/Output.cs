@@ -36,7 +36,7 @@ namespace OracleExecutor.Objects
         public CommandExecutionOutput()
         {
             Start = DateTime.Now;
-        }        
+        }
     }
 
     [DataContract]

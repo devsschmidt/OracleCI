@@ -2,6 +2,7 @@
 using OracleExecutor.Objects;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -17,12 +18,13 @@ namespace OracleExecutor
 
         private OracleConnection initalizeConnection(ConnectionData ConnectionData)
         {
-            string connection_string = String.Format("Data Source={0}; User Id={1}; Password={2}; Max Pool Size={3}; Min Pool Size={4};Pooling='{5}';",
+            string connection_string = String.Format("Data Source={0}; User Id={1}; Password={2}; Max Pool Size={3}; Min Pool Size={4};Pooling='true';",
                                             ConnectionData.TNS,
                                             ConnectionData.User,
                                             ConnectionData.Password,
                                             _default_min_poolsize,
                                             _default_max_poolsize
+
                                        );
 
             try
@@ -45,10 +47,8 @@ namespace OracleExecutor
             }            
         }
 
-        private List<CommandExecutionOutput> executeCommand(OracleConnection connection, CommandGroup commandGroup)
+        private void executeCommand(OracleConnection connection, CommandGroup commandGroup, ref List<CommandExecutionOutput> CommandOutput)
         {
-            List<CommandExecutionOutput> result = new List<CommandExecutionOutput>();
-
             foreach (Command command in commandGroup.Commands)
             {
                 Trace.TraceInformation(String.Format("execute command {0}", command.Id));
@@ -73,55 +73,52 @@ namespace OracleExecutor
                 finally
                 {
                     l_command_output.End = DateTime.Now;
-                    result.Add(l_command_output);
+                    CommandOutput.Add(l_command_output);
                 }
-            }
-
-            return result;
+            }            
         }
 
-        //private Output executeCommandGroups(OracleConnection connection, IList<CommandGroup> commandgroups)
-        //{
-        //    Output result = new Output();
+        private void executeCommandGroups(OracleConnection connection, IList<CommandGroup> commandgroups, ref Output output)
+        {
+            List<CommandExecutionOutput> command_output = output.CommandOutput;
 
-        //    OracleConnection l_db_connection = connection;
-        //    OracleTransaction transaction = l_db_connection.BeginTransaction();
-        //    try
-        //    {
-        //        foreach (CommandGroup commandgroup in commandgroups.Where(group => group.Type == CommandGroupType.Pre))
-        //        {
-        //            Trace.TraceInformation(String.Format("execute group {0}", commandgroup.Type.ToString()));
-        //            result.CommandOutput.AddRange(executeCommand(l_db_connection, commandgroup));
-        //        }
+            OracleConnection l_db_connection = connection;
+            OracleTransaction transaction = l_db_connection.BeginTransaction();
+            try
+            {
+                foreach (CommandGroup commandgroup in commandgroups.Where(group => group.Type == CommandGroupType.Pre))
+                {
+                    Trace.TraceInformation(String.Format("execute group {0}", commandgroup.Type.ToString()));
+                    executeCommand(l_db_connection, commandgroup, ref command_output);
+                }
 
-        //        foreach (CommandGroup commandgroup in commandgroups.Where(group => group.Type == CommandGroupType.Main))
-        //        {
-        //            Trace.TraceInformation(String.Format("execute group {0}", commandgroup.Type.ToString()));
-        //            result.CommandOutput.AddRange(executeCommand(l_db_connection, commandgroup));
-        //        }
+                foreach (CommandGroup commandgroup in commandgroups.Where(group => group.Type == CommandGroupType.Main))
+                {
+                    Trace.TraceInformation(String.Format("execute group {0}", commandgroup.Type.ToString()));
+                    executeCommand(l_db_connection, commandgroup, ref command_output);
+                }
 
-        //        foreach (CommandGroup commandgroup in commandgroups.Where(group => group.Type == CommandGroupType.Post))
-        //        {
-        //            Trace.TraceInformation(String.Format("execute group {0}", commandgroup.Type.ToString()));
-        //            result.CommandOutput.AddRange(executeCommand(l_db_connection, commandgroup));
-        //        }
+                foreach (CommandGroup commandgroup in commandgroups.Where(group => group.Type == CommandGroupType.Post))
+                {
+                    Trace.TraceInformation(String.Format("execute group {0}", commandgroup.Type.ToString()));
+                    executeCommand(l_db_connection, commandgroup, ref command_output);
+                }
 
-        //        transaction.Commit();
+                transaction.Commit();
 
-        //        result.Result = ExecutionResult.Success;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Trace.TraceError(String.Format("Error while package deployment {0}", e.Message));
-        //        transaction.Rollback();
-        //        result.Result = ExecutionResult.Error;
-        //    }
-        //    finally
-        //    {
-        //        result.End = DateTime.Now;
-        //    }
-        //    return result;
-        //}
+                output.Result = ExecutionResult.Success;
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError(String.Format("Error while package deployment {0}", e.Message));
+                transaction.Rollback();
+                output.Result = ExecutionResult.Error;
+            }
+            finally
+            {
+                output.End = DateTime.Now;
+            }
+        }
 
         public Output deployPackageToDB(ConnectionData ConnectionData, Package Package)
         {
@@ -133,17 +130,35 @@ namespace OracleExecutor
                 )
             );
 
-            Output DeploymentOutput;
-            OracleConnection db_connection = initalizeConnection(ConnectionData);
+            Output deployment_output = new Output();
             try
             {
-                DeploymentOutput = executeCommandGroups(db_connection, Package.CommandGroups);
-                DeploymentOutput.DeploymentId = Package.Id;
-                DeploymentOutput.ConnectionId = ConnectionData.Id;
+                OracleConnection db_connection = initalizeConnection(ConnectionData);
+                try
+                {
+                    executeCommandGroups(db_connection, Package.CommandGroups, ref deployment_output);
+                    deployment_output.DeploymentId = Package.Id;
+                    deployment_output.ConnectionId = ConnectionData.Id;
+                }
+                finally
+                {
+                    if (db_connection != null)
+                        db_connection.Dispose();
+                }
             }
-            finally
+            catch (Exception e)
             {
-                db_connection.Dispose();
+                Trace.TraceError(String.Format("Error while package deployment {0}", e.Message));
+
+                deployment_output.End = DateTime.Now;
+
+                CommandExecutionOutput error_output = new CommandExecutionOutput();
+
+                error_output.Start = deployment_output.Start;
+                error_output.End = deployment_output.End;
+                error_output.Value = e.Message;
+                error_output.Result = ExecutionResult.Error;
+                deployment_output.CommandOutput.Add(error_output);
             }
 
             Trace.TraceInformation(
@@ -151,7 +166,8 @@ namespace OracleExecutor
                     Package.Id
                 )
             );
-            return DeploymentOutput;
+
+            return deployment_output;
         }
     }
 }
