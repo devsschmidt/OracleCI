@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/OracleExecutor.Objects" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/OracleExecutor.Objects" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:62719/SQLExecutor.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ConnectionData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="ser:guid" />
+      <xs:element minOccurs="0" name="MaxPoolSize" type="xs:int" />
+      <xs:element minOccurs="0" name="MinPoolSize" type="xs:int" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TNS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="User" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ConnectionData" nillable="true" type="tns:ConnectionData" />
+  <xs:complexType name="Package">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CommandGroups" nillable="true" type="tns:ArrayOfCommandGroup" />
+      <xs:element minOccurs="0" name="Id" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Package" nillable="true" type="tns:Package" />
+  <xs:complexType name="ArrayOfCommandGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CommandGroup" nillable="true" type="tns:CommandGroup" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCommandGroup" nillable="true" type="tns:ArrayOfCommandGroup" />
+  <xs:complexType name="CommandGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Commands" nillable="true" type="tns:ArrayOfCommand" />
+      <xs:element minOccurs="0" name="Type" type="tns:CommandGroupType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CommandGroup" nillable="true" type="tns:CommandGroup" />
+  <xs:complexType name="ArrayOfCommand">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Command" nillable="true" type="tns:Command" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCommand" nillable="true" type="tns:ArrayOfCommand" />
+  <xs:complexType name="Command">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Command" nillable="true" type="tns:Command" />
+  <xs:simpleType name="CommandGroupType">
+    <xs:list>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Pre" />
+          <xs:enumeration value="Main" />
+          <xs:enumeration value="Post">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:list>
+  </xs:simpleType>
+  <xs:element name="CommandGroupType" nillable="true" type="tns:CommandGroupType" />
+  <xs:complexType name="Output">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CommandOutput" nillable="true" type="tns:ArrayOfCommandExecutionOutput" />
+      <xs:element minOccurs="0" name="ConnectionId" type="ser:guid" />
+      <xs:element minOccurs="0" name="DeploymentId" type="ser:guid" />
+      <xs:element minOccurs="0" name="End" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Result" type="tns:ExecutionResult" />
+      <xs:element minOccurs="0" name="Start" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Output" nillable="true" type="tns:Output" />
+  <xs:complexType name="ArrayOfCommandExecutionOutput">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CommandExecutionOutput" nillable="true" type="tns:CommandExecutionOutput" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCommandExecutionOutput" nillable="true" type="tns:ArrayOfCommandExecutionOutput" />
+  <xs:complexType name="CommandExecutionOutput">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="End" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Result" type="tns:ExecutionResult" />
+      <xs:element minOccurs="0" name="Start" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Type" type="tns:CommandGroupType" />
+      <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CommandExecutionOutput" nillable="true" type="tns:CommandExecutionOutput" />
+  <xs:simpleType name="ExecutionResult">
+    <xs:list>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Success">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">0</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Error">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:list>
+  </xs:simpleType>
+  <xs:element name="ExecutionResult" nillable="true" type="tns:ExecutionResult" />
+</xs:schema>

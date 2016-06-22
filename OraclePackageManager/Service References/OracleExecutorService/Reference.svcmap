@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="52d742b2-1439-45c1-b37c-0052591807bf" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:62719/SQLExecutor.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="SQLExecutor.xsd" MetadataType="Schema" ID="8d9db18d-3c3a-4924-ab4a-0a49ab841d91" SourceId="1" SourceUrl="http://localhost:62719/SQLExecutor.svc?xsd=xsd1" />
+    <MetadataFile FileName="SQLExecutor1.xsd" MetadataType="Schema" ID="aef12237-43ee-4db2-bfad-7d0afcc203a8" SourceId="1" SourceUrl="http://localhost:62719/SQLExecutor.svc?xsd=xsd0" />
+    <MetadataFile FileName="SQLExecutor2.xsd" MetadataType="Schema" ID="c44f300d-966a-4735-a178-6ba11c01fa9a" SourceId="1" SourceUrl="http://localhost:62719/SQLExecutor.svc?xsd=xsd2" />
+    <MetadataFile FileName="SQLExecutor.disco" MetadataType="Disco" ID="aa626efc-d322-4d1d-9fbe-a636c47f8039" SourceId="1" SourceUrl="http://localhost:62719/SQLExecutor.svc?disco" />
+    <MetadataFile FileName="SQLExecutor.wsdl" MetadataType="Wsdl" ID="b85a9182-a193-4b2b-8e51-b50d6a00cac1" SourceId="1" SourceUrl="http://localhost:62719/SQLExecutor.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

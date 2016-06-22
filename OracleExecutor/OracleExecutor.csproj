@@ -106,7 +106,12 @@
       <DependentUpon>SQLExecutor.svc</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DataUtil\DataUtil.csproj">
+      <Project>{0c5eb03a-b1ca-40c6-a00d-ab3176970b5e}</Project>
+      <Name>DataUtil</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">

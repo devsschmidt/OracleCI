@@ -10,6 +10,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataUtilTests", "DataUtilTests\DataUtilTests.csproj", "{4FDC9478-B004-4930-8B48-380A00BE07A1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OraclePackageManager", "OraclePackageManager\OraclePackageManager.csproj", "{481EF23B-8E13-4BD6-8C49-EF346021F3CD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CAFFDFA7-0E40-4AEE-A5E9-88A9E25347B9} = {CAFFDFA7-0E40-4AEE-A5E9-88A9E25347B9}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

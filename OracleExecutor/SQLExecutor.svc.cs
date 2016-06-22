@@ -1,13 +1,10 @@
-﻿using Oracle.ManagedDataAccess.Client;
+﻿using DataUtil;
+using Oracle.ManagedDataAccess.Client;
 using OracleExecutor.Objects;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
 
 namespace OracleExecutor
 {
@@ -18,33 +15,13 @@ namespace OracleExecutor
 
         private OracleConnection initalizeConnection(ConnectionData ConnectionData)
         {
-            string connection_string = String.Format("Data Source={0}; User Id={1}; Password={2}; Max Pool Size={3}; Min Pool Size={4};Pooling='true';",
-                                            ConnectionData.TNS,
-                                            ConnectionData.User,
-                                            ConnectionData.Password,
-                                            _default_min_poolsize,
-                                            _default_max_poolsize
-
-                                       );
-
-            try
-            {
-                Trace.TraceInformation(String.Format("initiate Connection to {0}@{1}",
-                        ConnectionData.User,
-                        ConnectionData.TNS
-                    )
-                );
-
-                OracleConnection db_connection = new OracleConnection(connection_string);
-                db_connection.Open();
-
-                return db_connection;
-            }
-            catch (Exception e)
-            {
-                Trace.TraceError(String.Format("Connection couldn't be initiated {0}", e.Message));
-                throw;
-            }            
+            return OracleConnectionUtil.initalizeConnection(
+                ConnectionData.TNS, 
+                ConnectionData.User, 
+                ConnectionData.Password,
+                Math.Max(ConnectionData.MinPoolSize, _default_min_poolsize),
+                Math.Max(ConnectionData.MaxPoolSize, _default_max_poolsize)
+            );
         }
 
         private void executeCommand(OracleConnection connection, CommandGroup commandGroup, ref List<CommandExecutionOutput> CommandOutput)
