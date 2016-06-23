@@ -10,7 +10,7 @@ namespace OraclePackageManager
 {
     public class ConnectionManager : IConnectionManager
     {
-        public IList<Connection> getConnections()
+        public IList<ConnectionObject> getConnections()
         {
             return new DataControl().getConnections();
         }

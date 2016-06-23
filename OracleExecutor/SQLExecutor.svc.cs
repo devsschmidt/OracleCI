@@ -13,7 +13,7 @@ namespace OracleExecutor
         private int _default_min_poolsize = 1;
         private int _default_max_poolsize = 1;
 
-        private OracleConnection initalizeConnection(ConnectionData ConnectionData)
+        private OracleConnection initalizeConnection(Connection ConnectionData)
         {
             return OracleConnectionUtil.initalizeConnection(
                 ConnectionData.TNS, 
@@ -97,7 +97,7 @@ namespace OracleExecutor
             }
         }
 
-        public Output deployPackageToDB(ConnectionData ConnectionData, Package Package)
+        public Output deployPackageToDB(Connection ConnectionData, Package Package)
         {
             Trace.TraceInformation(
                 String.Format("Start processing of package {0} to {1}@{2}",

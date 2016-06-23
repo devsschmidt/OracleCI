@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace OraclePackageManager.Objects
 {
-    public class Package
+    public class PackageObject
     {
-        private IList<Command> _commands = new List<Command>();
+        private IList<CommandObject> _commands = new List<CommandObject>();
 
         public Guid Id { get; set; }
         public string Name { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastModified { get; set; }
 
-        public IList<Command> Commands
+        public IList<CommandObject> Commands
         {
             get
             {

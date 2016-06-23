@@ -15,9 +15,9 @@ namespace OraclePackageManager.OracleExecutorService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ConnectionData", Namespace="http://schemas.datacontract.org/2004/07/OracleExecutor.Objects")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Connection", Namespace="http://schemas.datacontract.org/2004/07/OracleExecutor.Objects")]
     [System.SerializableAttribute()]
-    public partial class ConnectionData : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class Connection : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -603,10 +603,10 @@ namespace OraclePackageManager.OracleExecutorService {
     public interface ISQLExecutor {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISQLExecutor/deployPackageToDB", ReplyAction="http://tempuri.org/ISQLExecutor/deployPackageToDBResponse")]
-        OraclePackageManager.OracleExecutorService.Output deployPackageToDB(OraclePackageManager.OracleExecutorService.ConnectionData ConnectionData, OraclePackageManager.OracleExecutorService.Package Package);
+        OraclePackageManager.OracleExecutorService.Output deployPackageToDB(OraclePackageManager.OracleExecutorService.Connection ConnectionData, OraclePackageManager.OracleExecutorService.Package Package);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISQLExecutor/deployPackageToDB", ReplyAction="http://tempuri.org/ISQLExecutor/deployPackageToDBResponse")]
-        System.Threading.Tasks.Task<OraclePackageManager.OracleExecutorService.Output> deployPackageToDBAsync(OraclePackageManager.OracleExecutorService.ConnectionData ConnectionData, OraclePackageManager.OracleExecutorService.Package Package);
+        System.Threading.Tasks.Task<OraclePackageManager.OracleExecutorService.Output> deployPackageToDBAsync(OraclePackageManager.OracleExecutorService.Connection ConnectionData, OraclePackageManager.OracleExecutorService.Package Package);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -636,11 +636,11 @@ namespace OraclePackageManager.OracleExecutorService {
                 base(binding, remoteAddress) {
         }
         
-        public OraclePackageManager.OracleExecutorService.Output deployPackageToDB(OraclePackageManager.OracleExecutorService.ConnectionData ConnectionData, OraclePackageManager.OracleExecutorService.Package Package) {
+        public OraclePackageManager.OracleExecutorService.Output deployPackageToDB(OraclePackageManager.OracleExecutorService.Connection ConnectionData, OraclePackageManager.OracleExecutorService.Package Package) {
             return base.Channel.deployPackageToDB(ConnectionData, Package);
         }
         
-        public System.Threading.Tasks.Task<OraclePackageManager.OracleExecutorService.Output> deployPackageToDBAsync(OraclePackageManager.OracleExecutorService.ConnectionData ConnectionData, OraclePackageManager.OracleExecutorService.Package Package) {
+        public System.Threading.Tasks.Task<OraclePackageManager.OracleExecutorService.Output> deployPackageToDBAsync(OraclePackageManager.OracleExecutorService.Connection ConnectionData, OraclePackageManager.OracleExecutorService.Package Package) {
             return base.Channel.deployPackageToDBAsync(ConnectionData, Package);
         }
     }

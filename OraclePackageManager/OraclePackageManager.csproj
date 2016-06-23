@@ -70,6 +70,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL" />
     <Reference Include="Oracle.ManagedDataAccess.EntityFramework, Version=6.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -113,14 +117,14 @@
       <DependentUpon>DeploymentManager.svc</DependentUpon>
     </Compile>
     <Compile Include="IDeploymentManager.cs" />
-    <Compile Include="Objects\Command.cs" />
-    <Compile Include="Objects\Connection.cs" />
+    <Compile Include="Objects\CommandObject.cs" />
+    <Compile Include="Objects\ConnectionObject.cs" />
     <Compile Include="ConnectionManager.svc.cs">
       <DependentUpon>ConnectionManager.svc</DependentUpon>
     </Compile>
     <Compile Include="DataControl.cs" />
     <Compile Include="IConnectionManager.cs" />
-    <Compile Include="Objects\Package.cs" />
+    <Compile Include="Objects\PackageObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\OracleExecutorService\Reference.cs">
       <AutoGen>True</AutoGen>

@@ -7,7 +7,7 @@ namespace OracleExecutor
     public interface ISQLExecutor
     {
         [OperationContract]
-        Output deployPackageToDB(ConnectionData ConnectionData, Package Package);
+        Output deployPackageToDB(Connection ConnectionData, Package Package);
 
 
     }

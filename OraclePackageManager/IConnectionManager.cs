@@ -8,6 +8,6 @@ namespace OraclePackageManager
     public interface IConnectionManager
     {
         [OperationContract]
-        IList<Connection> getConnections();
+        IList<ConnectionObject> getConnections();
     }
 }

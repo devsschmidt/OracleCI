@@ -107,6 +107,7 @@ BEGIN
     INSERT INTO deployment(d_id, d_package_id, d_content) 
     VALUES(DeploymentId, PackageId, PackageContent);
 END;
+/
 
 INSERT INTO connection VALUES('a0154912-5f1a-47f7-b5bb-228f3be29c4d', 'STC@SQLVM for Development', 'SQLVM','stc', 'stc');
 INSERT INTO realm VALUES('878176eb-3104-4977-a516-c6deca07fe5f', 'Local Realm');
@@ -121,7 +122,7 @@ BEGIN
   LOOP
     EXECUTE IMMEDIATE ''DROP SEQUENCE ''||sequence_name.name;
   END LOOP;
-END
+END;
 ', 1);
 
 INSERT INTO command VALUES('52a724c6-f238-4154-9503-ce911fa38fa0','9e0b2d57-a63b-4493-91a7-7b0504a81923', 1, SYSTIMESTAMP, SYSTIMESTAMP, 'Drop Sequences', '
@@ -133,8 +134,9 @@ BEGIN
   LOOP
     EXECUTE IMMEDIATE ''DROP TABLE ''||tablename.abc;
   END LOOP;
-END
+END;
 ', 2);
+
 
 INSERT INTO command VALUES('7f301f66-af9c-42c3-a035-a804720fdfaa','9e0b2d57-a63b-4493-91a7-7b0504a81923', 2, SYSTIMESTAMP, SYSTIMESTAMP, 'Drop Sequences', '
 CREATE TABLE event_type(

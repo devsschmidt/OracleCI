@@ -53,9 +53,9 @@ namespace OraclePackageManager
         }
 
         #region Connections
-        public IList<Connection> getConnections()
+        public IList<ConnectionObject> getConnections()
         {
-            IList<Connection> connections = new List<Connection>();
+            IList<ConnectionObject> connections = new List<ConnectionObject>();
 
             try
             {            
@@ -70,7 +70,7 @@ namespace OraclePackageManager
                 while (reader.Read())
                 {
                     connections.Add( 
-                        new Connection() {
+                        new ConnectionObject() {
                             Id = Guid.Parse(reader.GetString(0)),
                             Name = reader.GetString(1),
                             TNS = reader.GetString(2),
@@ -87,7 +87,7 @@ namespace OraclePackageManager
             return connections;
         }
 
-        public Connection getConnection(Guid ConnectionId)
+        public ConnectionObject getConnection(Guid ConnectionId)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace OraclePackageManager
                 while (reader.Read())
                 {
                     return 
-                        new Connection()
+                        new ConnectionObject()
                         {
                             Id = Guid.Parse(reader.GetString(0)),
                             Name = reader.GetString(1),
@@ -125,7 +125,7 @@ namespace OraclePackageManager
         #endregion
 
         #region Package
-        public Package getPackage(Guid PackageId)
+        public PackageObject getPackage(Guid PackageId)
         {
             try
             {
@@ -143,7 +143,7 @@ namespace OraclePackageManager
                 while (reader.Read())
                 {
                     return
-                        new Package()
+                        new PackageObject()
                         {
                             Id = Guid.Parse(reader.GetString(0)),
                             Created = reader.GetDateTime(1),
@@ -161,9 +161,9 @@ namespace OraclePackageManager
             return null;
         }
 
-        public IList<Command> getCommands(Guid PackageId)
+        public IList<CommandObject> getCommands(Guid PackageId)
         {
-            IList<Command> commands = new List<Command>();
+            IList<CommandObject> commands = new List<CommandObject>();
 
             try
             {
@@ -181,14 +181,15 @@ namespace OraclePackageManager
                 while (reader.Read())
                 {
                     commands.Add(
-                        new Command()
+                        new CommandObject()
                         {   
                             Id = Guid.Parse(reader.GetString(0)),
-                            Created = reader.GetDateTime(1),
-                            LastModified = reader.GetDateTime(2),
-                            Name = reader.GetString(3),
-                            Value = reader.GetString(4),
-                            SortIndex = reader.GetInt32(5)
+                            Type = (CommandType)reader.GetInt32(1),
+                            Created = reader.GetDateTime(2),
+                            LastModified = reader.GetDateTime(3),
+                            Name = reader.GetString(4),
+                            Value = reader.GetString(5),
+                            SortIndex = reader.GetInt32(6)
                         }
                     );
                 }
@@ -197,7 +198,7 @@ namespace OraclePackageManager
             {
                 Trace.TraceError(String.Format("Package {0} couldn't be retrieved from database. Error: {1}", PackageId.ToString(), e.Message));
             }
-            return null;
+            return commands;
         }
         #endregion#
     }

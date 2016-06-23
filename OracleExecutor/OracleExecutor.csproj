@@ -98,7 +98,7 @@
     <Compile Include="ISQLExecutor.cs" />
     <Compile Include="objects\Command.cs" />
     <Compile Include="objects\CommandGroup.cs" />
-    <Compile Include="objects\ConnectionData.cs" />
+    <Compile Include="objects\Connection.cs" />
     <Compile Include="objects\Output.cs" />
     <Compile Include="objects\Package.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

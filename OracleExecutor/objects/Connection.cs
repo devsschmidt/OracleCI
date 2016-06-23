@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace OraclePackageManager.Objects
+namespace OracleExecutor.Objects
 {
     [DataContract]
     public class Connection
     {
         [DataMember]
         public Guid Id { get; set; }
-
-        [DataMember]
-        public string Name { get; set; }
-
+        
         [DataMember]
         public string TNS { get; set; }
 

@@ -4,7 +4,7 @@
   <xs:element name="deployPackageToDB">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/OracleExecutor.Objects" minOccurs="0" name="ConnectionData" nillable="true" type="q1:ConnectionData" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/OracleExecutor.Objects" minOccurs="0" name="ConnectionData" nillable="true" type="q1:Connection" />
         <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/OracleExecutor.Objects" minOccurs="0" name="Package" nillable="true" type="q2:Package" />
       </xs:sequence>
     </xs:complexType>
